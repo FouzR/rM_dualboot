@@ -1,0 +1,8 @@
+[Unit]
+Description=Switches between the fallback and current OS partition
+
+[Service]
+ExecStart=/home/root/switch.sh
+
+[Install]
+WantedBy=multi-user.target
