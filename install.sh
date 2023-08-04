@@ -1,8 +1,5 @@
-mkdir -p /home/root/bin
-cd /home/root/bin
-wget -O Test.zip https://github.com/FouzR/rM_dualboot/archive/refs/tags/Test.zip
-unzip -o Test.zip
+wget -O switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
 cp switch_service.service /etc/systemd/system/
 chmod 644 /etc/systemd/system/switch_service.service
 systemctl daemon-reload
-systemctl enable --now switch_service.service
+systemctl enable switch_service.service
