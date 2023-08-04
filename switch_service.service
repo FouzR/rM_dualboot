@@ -2,7 +2,7 @@
 Description=Switches between the fallback and current OS partition
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/bin/bash /home/root/switch.sh
 
 [Install]
