@@ -3,7 +3,7 @@ Description=Switches between the fallback and current OS partition
 
 [Service]
 Type=simple
-ExecStart=/home/root/switch.sh
+ExecStart=/bin/bash /home/root/switch.sh
 
 [Install]
 WantedBy=multi-user.target
