@@ -19,3 +19,4 @@ cp switch_service.service /etc/systemd/system/
 chmod 644 /etc/systemd/system/switch_service.service
 systemctl daemon-reload
 systemctl enable --now switch_service.service
+rm switch_service.service
