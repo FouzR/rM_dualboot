@@ -1,5 +1,6 @@
 [Unit]
 Description=Switches between the fallback and current OS partition
+RequiresMountsFor=/home/root
 
 [Service]
 Type=oneshot
