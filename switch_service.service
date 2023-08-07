@@ -3,7 +3,7 @@ Description=Switches between the fallback and current OS partition
 RequiresMountsFor=/home/root
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart=/bin/bash /home/root/switch.sh
 
 [Install]
