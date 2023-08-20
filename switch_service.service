@@ -1,13 +1,13 @@
 [Unit]
 Description=Switches between the fallback and current OS partition
-RequiresMountsFor=/home/root
-DefaultDependencies=no
-Before=halt.target shutdown.target reboot.target
+RequiresMountsFor=/home/root /var/lib/uboot
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash /home/root/switch.sh
+ExecStart=/bin/true
+ExecStop=/bin/bash /home/root/switch.sh
+TimeoutSec=infinity
 
 [Install]
-WantedBy=shutdown.target halt.target reboot.target
+WantedBy=multi-user.target
