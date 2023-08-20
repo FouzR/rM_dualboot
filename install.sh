@@ -2,7 +2,7 @@ wget -O switch.sh -nc https://raw.githubusercontent.com/ddvk/remarkable-update/m
 wget -O switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
 declare -A checksums=(
 ["./switch.sh"]="c6b165745d67cb7adc62d7826253ad027a55ee2551d189c37f7d3181e7358044"
-["./switch_service.service"]="5a04a03fb17b24a4ee3c0d12f3b7786d2b1effcf9792e108f666d8a22a39fd9e"
+["./switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
 )
 for check in ${!checksums[@]} 
 do
