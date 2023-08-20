@@ -1,6 +1,7 @@
 [Unit]
 Description=Switches between the fallback and current OS partition
 RequiresMountsFor=/home/root
+DefaultDependencies=no
 
 [Service]
 Type=oneshot
@@ -8,4 +9,4 @@ RemainAfterExit=yes
 ExecStart=/bin/bash /home/root/switch.sh
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=shutdown.target halt.target reboot.target
