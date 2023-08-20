@@ -2,6 +2,7 @@
 Description=Switches between the fallback and current OS partition
 RequiresMountsFor=/home/root
 DefaultDependencies=no
+Before=halt.target shutdown.target reboot.target
 
 [Service]
 Type=oneshot
