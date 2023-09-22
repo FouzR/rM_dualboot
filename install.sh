@@ -4,6 +4,7 @@ wget -O suspended.png https://raw.githubusercontent.com/FouzR/rM_dualboot/WithSu
 declare -A checksums=(
 ["./switch.sh"]="c6b165745d67cb7adc62d7826253ad027a55ee2551d189c37f7d3181e7358044"
 ["./switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
+["./suspended.png"]="66be2cb5cd2159e93843ce24bf1b6a11c372b7fcf9d59cbfeb77508c751156a6"
 )
 for check in ${!checksums[@]} 
 do
