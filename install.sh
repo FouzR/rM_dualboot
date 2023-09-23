@@ -15,9 +15,9 @@ do
     fi
 done
 chmod +x ./switch.sh
+chmod 644 ./switch_service.service
 cp switch_service.service /etc/systemd/system/
 cp suspended.png /usr/share/remarkable
-chmod 644 /etc/systemd/system/switch_service.service
 systemctl daemon-reload
 systemctl enable --now switch_service.service
 
