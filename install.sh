@@ -33,7 +33,7 @@ else
 fi
 mkdir /mnt/old_part
 mount /dev/mmcblk2p2${OLDPART} /mnt/old_part
-cp ~/switch_service /mnt/old_part/etc/systemd/system/
+cp switch_service /mnt/old_part/etc/systemd/system/
 ln -s /mnt/old_part/systemd/system/switch_service.service ./multi-user.target.wants/switch_service.service
 umount /mnt/old_part
 rm -r /mnt/old_part
