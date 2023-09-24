@@ -1,9 +1,18 @@
 wget -O switch.sh -nc https://raw.githubusercontent.com/ddvk/remarkable-update/main/switch.sh
-wget -O switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
+wget -O /tmp/rM_dualboot/switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
 declare -A checksums=(
 ["./switch.sh"]="c6b165745d67cb7adc62d7826253ad027a55ee2551d189c37f7d3181e7358044"
-["./switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
+["/tmp/rM_dualboot/switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
 )
+
+# find device model
+Model = $(cat /sys/devices/soc0/machine)
+if [ $Model == "reMarkable 2.0" ]; then
+    dsk="2"
+else
+    dsk="1"
+fi
+
 for check in ${!checksums[@]} 
 do
     echo "${checksums[$check]}  $check" | sha256sum -c
@@ -15,12 +24,10 @@ do
     fi
 done
 chmod +x ./switch.sh
-chmod 644 ./switch_service.service
-cp switch_service.service /etc/systemd/system/
-cp suspended.png /usr/share/remarkable
+chmod 644 /tmp/rM_dualboot/switch_service.service
+cp /tmp/rM_dualboot/switch_service.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable --now switch_service.service
-
 # The below code aims to do the same but for the other partition
 
 # check active partition using print_env or whatever
@@ -32,10 +39,11 @@ else
     NEWPART="2"
 fi
 mkdir /mnt/old_part
-mount /dev/mmcblk2p2${OLDPART} /mnt/old_part
-cp switch_service /mnt/old_part/etc/systemd/system/
+
+
+mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
+cp /tmp/rM_dualboot/switch_service /mnt/old_part/etc/systemd/system/
 ln -s /mnt/old_part/systemd/system/switch_service.service ./multi-user.target.wants/switch_service.service
 umount /mnt/old_part
 rm -r /mnt/old_part
 
-rm switch_service.service
