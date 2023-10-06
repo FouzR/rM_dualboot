@@ -2,9 +2,11 @@ set -e
 mkdir /tmp/rM_dualboot
 wget -O switch.sh -nc https://raw.githubusercontent.com/ddvk/remarkable-update/main/switch.sh
 wget -O /tmp/rM_dualboot/switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
+wget -O suspended.png https://raw.githubusercontent.com/FouzR/rM_dualboot/WithSuspended.png/suspended.png
 declare -A checksums=(
 ["./switch.sh"]="c6b165745d67cb7adc62d7826253ad027a55ee2551d189c37f7d3181e7358044"
 ["/tmp/rM_dualboot/switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
+["./suspended.png"] = "66be2cb5cd2159e93843ce24bf1b6a11c372b7fcf9d59cbfeb77508c751156a6"
 )
 
 # find device model
@@ -30,7 +32,6 @@ chmod +x ./switch.sh
 chmod 644 /tmp/rM_dualboot/switch_service.service
 cp /tmp/rM_dualboot/switch_service.service /etc/systemd/system/
 
-
 # check active partition using print_env or whatever
 
 OLDPART=$(fw_printenv -n active_partition)
@@ -49,9 +50,12 @@ systemctl enable --now switch_service.service
 # The below code aims to do the same but for the other partition
 
 
+
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
 ln -s /etc/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
+cp suspended.png /mnt/old_part/usr/share/remarkable
+
 umount /mnt/old_part
 rmdir /mnt/old_part
 
