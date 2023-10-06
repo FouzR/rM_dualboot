@@ -46,14 +46,9 @@ mkdir /mnt/old_part
 
 
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
-<<<<<<< HEAD
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
 ln -s /mnt/old_part/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
-=======
-cp /tmp/rM_dualboot/switch_service /mnt/old_part/etc/systemd/system/
 cp suspended.png /mnt/old_part/usr/share/remarkable
-ln -s /mnt/old_part/systemd/system/switch_service.service ./multi-user.target.wants/switch_service.service
->>>>>>> 5f4a135 (Checksum and copying the suspended.png image)
 umount /mnt/old_part
 rm -r /mnt/old_part
 
