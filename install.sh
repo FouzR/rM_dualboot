@@ -5,6 +5,7 @@ wget -O suspended.png https://raw.githubusercontent.com/FouzR/rM_dualboot/WithSu
 declare -A checksums=(
 ["./switch.sh"]="c6b165745d67cb7adc62d7826253ad027a55ee2551d189c37f7d3181e7358044"
 ["/tmp/rM_dualboot/switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
+["./suspended.png"] = "66be2cb5cd2159e93843ce24bf1b6a11c372b7fcf9d59cbfeb77508c751156a6"
 )
 
 # find device model
@@ -29,10 +30,6 @@ done
 chmod +x ./switch.sh
 chmod 644 /tmp/rM_dualboot/switch_service.service
 cp /tmp/rM_dualboot/switch_service.service /etc/systemd/system/
-cp suspended.png /usr/share/remarkable
-systemctl daemon-reload
-systemctl enable --now switch_service.service
-# The below code aims to do the same but for the other partition
 
 # check active partition using print_env or whatever
 
@@ -44,6 +41,12 @@ else
 fi
 mkdir /mnt/old_part
 
+#running the partition check _before_ the systemctl runs, as that alters
+# the active_partiton, annoyingly
+
+systemctl daemon-reload
+systemctl enable --now switch_service.service
+# The below code aims to do the same but for the other partition
 
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
