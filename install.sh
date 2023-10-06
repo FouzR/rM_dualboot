@@ -1,3 +1,4 @@
+mkdir /tmp/rM_dualboot
 wget -O switch.sh -nc https://raw.githubusercontent.com/ddvk/remarkable-update/main/switch.sh
 wget -O /tmp/rM_dualboot/switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
 declare -A checksums=(
@@ -6,14 +7,15 @@ declare -A checksums=(
 )
 
 # find device model
-Model = $(cat /sys/devices/soc0/machine)
-if [ $Model == "reMarkable 2.0" ]; then
+Model=$(< /sys/devices/soc0/machine)
+rM2="reMarkable 2.0"
+if [[ "$Model" == "$rM2" ]]; then
     dsk="2"
 else
     dsk="1"
 fi
 
-for check in ${!checksums[@]} 
+for check in ${!checksums[@]}
 do
     echo "${checksums[$check]}  $check" | sha256sum -c
     if [ $? != 0 ]; then
@@ -42,8 +44,8 @@ mkdir /mnt/old_part
 
 
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
-cp /tmp/rM_dualboot/switch_service /mnt/old_part/etc/systemd/system/
-ln -s /mnt/old_part/systemd/system/switch_service.service ./multi-user.target.wants/switch_service.service
+cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
+ln -s /mnt/old_part/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
 umount /mnt/old_part
 rm -r /mnt/old_part
 
