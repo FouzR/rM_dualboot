@@ -1,3 +1,4 @@
+set -e
 mkdir /tmp/rM_dualboot
 wget -O switch.sh -nc https://raw.githubusercontent.com/ddvk/remarkable-update/main/switch.sh
 wget -O /tmp/rM_dualboot/switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
@@ -50,7 +51,7 @@ systemctl enable --now switch_service.service
 
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
-ln -s /mnt/old_part/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
+ln -s /etc/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
 umount /mnt/old_part
-rm -r /mnt/old_part
+rmdir /mnt/old_part
 
