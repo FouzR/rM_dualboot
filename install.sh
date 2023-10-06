@@ -1,6 +1,7 @@
 mkdir /tmp/rM_dualboot
 wget -O switch.sh -nc https://raw.githubusercontent.com/ddvk/remarkable-update/main/switch.sh
 wget -O /tmp/rM_dualboot/switch_service.service https://raw.githubusercontent.com/FouzR/rM_dualboot/main/switch_service.service
+wget -O suspended.png https://raw.githubusercontent.com/FouzR/rM_dualboot/WithSuspended.png/suspended.png
 declare -A checksums=(
 ["./switch.sh"]="c6b165745d67cb7adc62d7826253ad027a55ee2551d189c37f7d3181e7358044"
 ["/tmp/rM_dualboot/switch_service.service"]="8ac9b202330e4a57d8b2b7a0cdb938f29fed118be395732f960693ee81ab027e"
@@ -28,6 +29,7 @@ done
 chmod +x ./switch.sh
 chmod 644 /tmp/rM_dualboot/switch_service.service
 cp /tmp/rM_dualboot/switch_service.service /etc/systemd/system/
+cp suspended.png /usr/share/remarkable
 systemctl daemon-reload
 systemctl enable --now switch_service.service
 # The below code aims to do the same but for the other partition
@@ -44,8 +46,14 @@ mkdir /mnt/old_part
 
 
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
+<<<<<<< HEAD
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
 ln -s /mnt/old_part/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
+=======
+cp /tmp/rM_dualboot/switch_service /mnt/old_part/etc/systemd/system/
+cp suspended.png /mnt/old_part/usr/share/remarkable
+ln -s /mnt/old_part/systemd/system/switch_service.service ./multi-user.target.wants/switch_service.service
+>>>>>>> 5f4a135 (Checksum and copying the suspended.png image)
 umount /mnt/old_part
 rm -r /mnt/old_part
 
