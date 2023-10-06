@@ -1,6 +1,8 @@
 # rM_dualboot
 A simple service that lets the user to reboot the reMarkable to execute ./switch.sh to change partitions
 
-Copy paste the below line into the SSH terminal on the rM. Theoretically, it should add the bootup service on both partitions 
-`wget -O install.sh https://raw.githubusercontent.com/FouzR/rM_dualboot/Improved.png/install.sh && echo "e971c8cecc035a75975de7d45abab9d7cf4de6ef0b1a4155da9537e772cc06d8  install.sh" | sha256sum -c && sh ./install.sh`
+### This branch includes a suspended.png file for personal use. I added it to make things easy for me when I upgrade to a new version and want the old suspended image
+Copy paste the below line into the SSH terminal on the rM in one of the partition, and run it again in the second partition
+`wget -O install.sh https://raw.githubusercontent.com/FouzR/rM_dualboot/WithSuspended.png/install.sh && echo "8c2bd03b96b663b7665b487023d066797bc86d3d651fb2134c508f73e534a5ec  install.sh" | sha256sum -c && sh ./install.sh`
+
 
