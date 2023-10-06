@@ -28,9 +28,7 @@ done
 chmod +x ./switch.sh
 chmod 644 /tmp/rM_dualboot/switch_service.service
 cp /tmp/rM_dualboot/switch_service.service /etc/systemd/system/
-systemctl daemon-reload
-systemctl enable --now switch_service.service
-# The below code aims to do the same but for the other partition
+
 
 # check active partition using print_env or whatever
 
@@ -41,6 +39,13 @@ else
     NEWPART="2"
 fi
 mkdir /mnt/old_part
+
+#running the partition check _before_ the systemctl runs, as that alters
+# the active_partiton, annoyingly
+
+systemctl daemon-reload
+systemctl enable --now switch_service.service
+# The below code aims to do the same but for the other partition
 
 
 mount /dev/mmcblk${dsk}p${OLDPART} /mnt/old_part
