@@ -77,9 +77,9 @@ echo "Copying service file to fallback"
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
 echo "Linking the service file...."
 ln -s /etc/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
-
-fallback=$(cat /usr/share/remarkable/update.conf | grep "REMARKABLE_RELEASE_VERSION")
-current=$(cat /mnt/old_part/usr/share/remarkable/update.conf | grep "REMARKABLE_RELEASE_VERSION")
+cp suspended.png /mnt/old_part/usr/share/remarkable
+fallback=$(cat /mnt/old_part/usr/share/remarkable/update.conf | grep "REMARKABLE_RELEASE_VERSION")
+current=$(cat /usr/share/remarkable/update.conf | grep "REMARKABLE_RELEASE_VERSION")
 
 fallbackV=${fallback##=}
 currentV=${current##=}
@@ -90,4 +90,4 @@ rmdir /mnt/old_part
 echo "Current version = ${currentV}"
 echo "Fallback version = ${fallbackV}"
 echo "Dual Booting enabled between the above two versions"
-echo "Remember to disable auto updates""
+echo "Remember to disable auto updates"
