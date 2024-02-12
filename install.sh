@@ -50,8 +50,8 @@ cp /tmp/rM_dualboot/switch_service.service /etc/systemd/system/
 
 # check active partition using print_env or whatever
 
-OLDPART=$(fw_printenv -n active_partition)
-if [ $OLDPART  ==  "2" ]; then
+CURROOT=$(mount | head -n1 | awk '{print $1}')
+if [ $CURROOT  ==  "/dev/mmcblk${dsk}p2" ]; then
     NEWPART="3"
 else
     NEWPART="2"
@@ -77,7 +77,8 @@ echo "Copying service file to fallback"
 cp /tmp/rM_dualboot/switch_service.service /mnt/old_part/etc/systemd/system/
 echo "Linking the service file...."
 ln -s /etc/systemd/system/switch_service.service /mnt/old_part/etc/systemd/system/multi-user.target.wants/switch_service.service
-cp suspended.png /mnt/old_part/usr/share/remarkable
+# Uncomment below code to copy over suspended file
+#cp suspended.png /mnt/old_part/usr/share/remarkable
 fallback=$(cat /mnt/old_part/usr/share/remarkable/update.conf | grep "REMARKABLE_RELEASE_VERSION")
 current=$(cat /usr/share/remarkable/update.conf | grep "REMARKABLE_RELEASE_VERSION")
 
